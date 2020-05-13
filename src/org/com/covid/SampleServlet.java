@@ -1,6 +1,9 @@
 package org.com.covid;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,11 +30,13 @@ public class SampleServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		PrintWriter writer = response.getWriter();
 		System.out.println("Get Method");
 		System.out.println(request.getParameter("password"));
 		System.out.println(request.getQueryString());
-		//response.getWriter().print();
+		ServletContext context = request.getServletContext();
+		context.setAttribute("contextName", request.getParameter("user"));
+		writer.println("COntext Name: "+context.getAttribute("contexName"));
 		
 	}
 
